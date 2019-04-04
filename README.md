@@ -1,3 +1,3 @@
 # WeatherApp
-Weather application in Swift
-Hello 
+Weather application in Swift. 
+Anass & Achraf
