@@ -20,36 +20,20 @@ let appid: String = "849506b7df59e025b14785593373c84b"
 struct WeatherResult: Codable {
     
     struct Weather: Codable {
-        let main: String
-        let description: String
+        let main: String?
+        let description: String?
     }
     
     struct Wind: Codable {
-        let speed, deg: Float
+        let speed, deg: Float?
     }
     
     struct Clouds: Codable {
-        let all: Float
+        let all: Float?
     }
     
     struct Main: Codable {
-        let temp, pressure, humidity, temp_min, temp_max, sea_level, grnd_level: Float
-        
-        enum MyStructKeys: String, CodingKey {
-            case temp, pressure, humidity, temp_min, temp_max, sea_level, grnd_level
-        }
-        
-        init(from decoder: Decoder) throws {
-            let container = try decoder.container(keyedBy: MyStructKeys.self)
-            self.temp = try container.decodeIfPresent(Float.self, forKey: .temp) ?? 0.0
-            self.pressure = try container.decodeIfPresent(Float.self, forKey: .pressure) ?? 0.0
-            self.humidity = try container.decodeIfPresent(Float.self, forKey: .humidity) ?? 0.0
-            self.temp_min = try container.decodeIfPresent(Float.self, forKey: .temp_min) ?? 0.0
-            self.temp_max = try container.decodeIfPresent(Float.self, forKey: .temp_max) ?? 0.0
-            self.sea_level = try container.decodeIfPresent(Float.self, forKey: .sea_level) ?? 0.0
-            self.grnd_level = try container.decodeIfPresent(Float.self, forKey: .grnd_level) ?? 0.0
-        }
-
+        let temp, pressure, humidity, temp_min, temp_max, sea_level, grnd_level: Float?
     }
     
     let weather: [Weather]?
@@ -58,20 +42,7 @@ struct WeatherResult: Codable {
     let clouds: Clouds?
     let dt: Int?
     let name: String?
-    
-    enum MyStructKeys: String, CodingKey {
-        case weather, main, clouds, wind, rain, snow, dt, name
-    }
-    
-    init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: MyStructKeys.self)
-        self.weather = try container.decodeIfPresent([Weather].self, forKey: .weather)
-        self.main = try container.decodeIfPresent(Main.self, forKey: .main)
-        self.wind = try container.decodeIfPresent(Wind.self, forKey: .wind)
-        self.clouds = try container.decodeIfPresent(Clouds.self, forKey: .clouds)
-        self.dt = try container.decodeIfPresent(Int.self, forKey: .dt)
-        self.name = try container.decodeIfPresent(String.self, forKey: .name)
-    }
+
 }
 struct Forecast : Codable {
     let list : [WeatherResult]
@@ -118,8 +89,10 @@ func forecastByCity(city : String, completion :@escaping ([WeatherResult]?)-> Vo
     
 }
 
-weatherByCity(city : "Paris") { (weather) in
-    print(weather)
-    
+//weatherByCity(city : "Paris") {(weather) in
+  // print(weather)
+//}
+
+forecastByCity(city: "Paris")    {(weather) in
+        print(weather)
 }
-//forecastByCity(city: "Paris")
