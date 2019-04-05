@@ -61,7 +61,12 @@ func weatherByCity(city : String, completion :@escaping (WeatherResult?)-> Void)
             return;
         }
         let result = try? jsonDecoder.decode(WeatherResult.self,from: data)
-        print(result)
+        print(result?.name)
+        print(result?.weather)
+        print(result?.wind)
+        print(result?.dt)
+        print(result?.clouds)
+        
         print(data)
     }
     task.resume()
@@ -89,10 +94,11 @@ func forecastByCity(city : String, completion :@escaping ([WeatherResult]?)-> Vo
     
 }
 
-//weatherByCity(city : "Paris") {(weather) in
-  // print(weather)
-//}
-
-forecastByCity(city: "Paris")    {(weather) in
-        print(weather)
+weatherByCity(city : "Paris") {(weather) in
+   print(weather)
+    
 }
+
+//forecastByCity(city: "Paris")    {(weather) in
+  //      print(weather)
+//}
